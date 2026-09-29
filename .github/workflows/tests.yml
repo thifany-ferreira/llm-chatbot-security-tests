@@ -1,0 +1,67 @@
+name: Testes de segurança do chatbot
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  bot-seguro:
+    name: Bot com guardrails (deve passar)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorio-bot-seguro
+          path: reports/report.html
+
+  prova-de-eficacia:
+    name: Bot vulnerável (a suíte deve detectar)
+    runs-on: ubuntu-latest
+    env:
+      BOT_MODE: vulnerable
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - name: Espera falhas (se passar, os testes não estão pegando nada)
+        run: |
+          if pytest; then
+            echo "::error::A suíte passou contra o bot vulnerável. Os testes não estão detectando as falhas."
+            exit 1
+          fi
+          echo "A suíte detectou as vulnerabilidades, como esperado."
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorio-bot-vulneravel
+          path: reports/report.html
+
+  claude-real:
+    name: Bot com Claude (opcional)
+    if: vars.RUN_CLAUDE == 'true'
+    runs-on: ubuntu-latest
+    env:
+      BOT_PROVIDER: claude
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install -r requirements.txt
+      - run: pytest
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: relatorio-claude
+          path: reports/report.html
