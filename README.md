@@ -121,8 +121,8 @@ python -m bot.chat M001     # cliente mexicano
 
 | Cenário | Resultado |
 |---|---|
-| Bot com guardrails | ✅ 55 de 55 testes passam |
-| Bot vulnerável | ❌ 31 de 55 falham (vulnerabilidades detectadas) |
+| Bot com guardrails | ✅ 63 de 63 testes passam |
+| Bot vulnerável | ❌ 39 de 63 falham (vulnerabilidades detectadas) |
 
 No modo vulnerável, os testes unitários continuam passando, porque testam as proteções diretamente. Quem falha são os testes de ponta a ponta, que conversam com o bot sem proteção.
 

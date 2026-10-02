@@ -19,14 +19,16 @@ INJECTION_PATTERNS = [
     r"ignore?\s+(todas?\s+)?(as\s+)?(suas\s+)?(instrucoes|regras|orientacoes)",
     r"esqueca\s+(tudo|as\s+instrucoes|suas\s+regras)",
     r"(prompt|instrucoes)\s+(do|de)\s+sistema",
-    r"(mostre|revele|repita|imprima)\s+(o\s+|as\s+|suas\s+)?(prompt|instrucoes|regras)",
+    r"(mostre|revele|repita|imprima|traduza|resuma)\s+(o\s+|as\s+|suas\s+)?(prompt|instrucoes|regras)",
     r"voce\s+agora\s+e", r"finja\s+(que|ser)", r"modo\s+(desenvolvedor|admin|debug)",
     # ES
     r"ignora\s+(todas\s+)?(las\s+)?(tus\s+)?(instrucciones|reglas)",
     r"(prompt|instrucciones)\s+del\s+sistema", r"ahora\s+eres", r"modo\s+desarrollador",
+    r"(traduce|resume|repite)\s+(tus\s+|las\s+)?(instrucciones|reglas)",
     # EN
     r"ignore\s+(all\s+)?(previous|prior|your)\s+(instructions|rules)",
     r"system\s+prompt", r"developer\s+mode", r"\bdan\b", r"jailbreak",
+    r"(translate|summarize|repeat)\s+(your\s+|the\s+)?(instructions|rules)",
 ]
 
 HANDOFF_PATTERNS = [
